@@ -40,6 +40,21 @@ Starts the application server.
 app.start(8080);
 ```
 
+## Release Analysis
+
+The release analysis feature analyzes GitHub releases using AI-powered intelligence.
+
+### AI Model
+
+Release analysis is powered by **Claude Sonnet 4.5**, Anthropic's latest AI model, providing enhanced accuracy and performance when analyzing GitHub releases.
+
+### Benefits
+
+- Improved analysis accuracy
+- Enhanced performance
+- Up-to-date with the latest AI capabilities
+- No deprecation warnings in logs
+
 ## Events
 
 ### `onReady`
