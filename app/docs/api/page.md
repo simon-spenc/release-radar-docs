@@ -96,6 +96,69 @@ Starts the application server.
 app.start(8080);
 ```
 
+## Release Notes
+
+The release notes API provides endpoints for managing, generating, and browsing release notes history.
+
+### `getReleaseNotes(version)`
+
+Retrieves release notes for a specific version.
+
+**Parameters:**
+- `version` (string) - The release version identifier
+
+**Returns:** Promise<{version: string, content: string, publishedAt: Date}>
+
+**Example:**
+```javascript
+const releaseNotes = await app.getReleaseNotes('v1.2.0');
+console.log(releaseNotes.content);
+```
+
+### `listReleaseNotes(options)`
+
+Retrieves a list of all release notes.
+
+**Parameters:**
+- `options` (Object, optional) - Query options
+  - `limit` (number) - Maximum number of results (default: 10)
+  - `offset` (number) - Number of records to skip (default: 0)
+
+**Returns:** Promise<Array<{version: string, publishedAt: Date}>>
+
+**Example:**
+```javascript
+const releases = await app.listReleaseNotes({ limit: 20 });
+releases.forEach(release => {
+  console.log(`${release.version} - ${release.publishedAt}`);
+});
+```
+
+### `generateReleaseNotes(data)`
+
+Generates release notes from provided data.
+
+**Parameters:**
+- `data` (Object) - Release information
+  - `version` (string) - Release version
+  - `changes` (Array<string>) - List of changes
+  - `repository` (string, optional) - GitHub repository URL
+
+**Returns:** Promise<{content: string, markdown: string}>
+
+**Example:**
+```javascript
+const notes = await app.generateReleaseNotes({
+  version: 'v2.0.0',
+  changes: ['Added new feature', 'Fixed bug in authentication'],
+  repository: 'https://github.com/user/repo'
+});
+```
+
+### Markdown Rendering
+
+Release notes support enhanced markdown rendering with syntax highlighting for code blocks. Technical content is automatically formatted for improved readability in the dashboard viewer.
+
 ## Release Analysis
 
 The release analysis feature analyzes GitHub releases using AI-powered intelligence.
