@@ -7,6 +7,62 @@ description: Complete API documentation
 
 This page contains the complete API reference for our product.
 
+## Authentication
+
+The API now uses JWT (JSON Web Token) based authentication to secure endpoints and manage user sessions.
+
+### `register(credentials)`
+
+Registers a new user account.
+
+**Parameters:**
+- `credentials` (Object) - User registration details
+  - `username` (string) - Unique username
+  - `email` (string) - Valid email address
+  - `password` (string) - User password
+
+**Returns:** Promise<{token: string, user: Object}>
+
+**Example:**
+```javascript
+const { token, user } = await app.register({
+  username: 'johndoe',
+  email: 'john@example.com',
+  password: 'securePassword123'
+});
+```
+
+### `login(credentials)`
+
+Authenticates a user and returns a JWT token.
+
+**Parameters:**
+- `credentials` (Object) - Login credentials
+  - `email` (string) - User email address
+  - `password` (string) - User password
+
+**Returns:** Promise<{token: string, user: Object}>
+
+**Example:**
+```javascript
+const { token, user } = await app.login({
+  email: 'john@example.com',
+  password: 'securePassword123'
+});
+```
+
+### Token Management
+
+JWT tokens are automatically validated by authentication middleware on protected routes. Include the token in the Authorization header for authenticated requests:
+
+```javascript
+fetch('/api/protected-resource', {
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
+});
+```
+
 ## Core Methods
 
 ### `initialize()`
